@@ -64,6 +64,7 @@ body {
 
 .result {
     display: flex;
+    flex-direction: column;
 }
 
 .result p {
@@ -71,4 +72,17 @@ body {
     font-size:64px;
     text-align: center;
     margin-top:0;
+}
+
+.resultPage {
+    display:block;
+}
+#gameResult {
+    text-align: center;
+    font-size:96px;
+}
+.resultPage a{
+    display:block;
+    text-align:center;
+    font-size:36px;
 }

@@ -4,26 +4,27 @@ function getComputerChoice() {
   return choices[idx];
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, playerPoints, computerPoints) {
   // your code here!
   if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
-    return "Tied";
+    return [playerPoints+0, computerPoints+0, "Tied"];
   } else if (
     playerSelection.toLowerCase() === "rock" &&
     computerSelection.toLowerCase() === "scissors"
   ) {
-    return `You Win! ${playerSelection} beats ${computerSelection}!`;
+    return [playerPoints+1, computerPoints+0, `You Win! ${playerSelection} beats ${computerSelection}!`];
   } else if (
     playerSelection.toLowerCase() === "scissors" &&
     computerSelection.toLowerCase() === "paper"
   ) {
-    return `You Win! ${playerSelection} beats ${computerSelection}!`;
+    return [playerPoints+1, computerPoints+0, `You Win! ${playerSelection} beats ${computerSelection}!`];
   } else if (
     playerSelection.toLowerCase() === "paper" &&
     computerSelection.toLowerCase() === "rock"
   ) {
-    return `You Win! ${playerSelection} beats ${computerSelection}!`;
-  } else return `You Lose! ${computerSelection} beats ${playerSelection}!`;
+    return [playerPoints+1, computerPoints+0, `You Win! ${playerSelection} beats ${computerSelection}!`];
+  } else
+    return [playerPoints+0, computerPoints+1, `You Lose! ${computerSelection} beats ${playerSelection}!`];
 }
 
 function appendText(querySel, txt) {
@@ -33,9 +34,9 @@ function appendText(querySel, txt) {
   container.appendChild(content);
 }
 function replaceText(id, txt) {
-  document.getElementById(id).innerText = txt
+  document.getElementById(id).innerText = txt;
 }
-function displayMove(event) {
+function displayMove(event, playerPoints, computerPoints) {
   let playerChoice;
   if (event.target.id === "rock") {
     playerChoice = "Rock";
@@ -46,20 +47,46 @@ function displayMove(event) {
   }
 
   const computerChoice = getComputerChoice();
-  const winningText = playRound(playerChoice, computerChoice);
+  const [playerScore, computerScore, winningText] = playRound(
+    playerChoice,
+    computerChoice,
+    playerPoints, computerPoints
+  );
 
-  replaceText("playerChoice", playerChoice);
-  replaceText("computerChoice", computerChoice);
+//   replaceText("playerChoice", playerChoice);
+//   replaceText("computerChoice", computerChoice);
+  appendText(".player", playerChoice);
+  appendText(".computer", computerChoice);
   replaceText("result-text", winningText);
 
+  return [playerScore, computerScore];
 }
-
+function displayFinalScore(playerScore, computerScore) {
+  if (playerScore > computerScore) {
+    replaceText("gameResult", `Final: You Won ${playerScore}/${playerScore+computerScore} games`);
+  } else if (computerScore > playerScore) {
+    replaceText("gameResult", `Final: You Lost ${computerScore}/${playerScore+computerScore} games`);
+  } else {
+    replaceText("gameResult", `Final: You Tied ${playerScore} to ${computerScore}`);
+  }
+}
 function game(numberGames) {
   const buttons = document.querySelectorAll(".btn");
+  let count = 0;
+  let player = 0;
+  let computer = 0;
   buttons.forEach(function (currentBtn) {
     currentBtn.addEventListener("click", (event) => {
-      displayMove(event);
+      count++;
+      if (count < numberGames) {
+        [player, computer] = displayMove(event, player, computer);
+      } else {
+        [player, computer] = displayMove(event, player, computer);
+        // console.log(player)
+        displayFinalScore(player, computer);
+        // console.log(document)
+      }
     });
   });
 }
-game(1);
+game(5);
