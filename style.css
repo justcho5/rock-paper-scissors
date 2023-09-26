@@ -1,0 +1,74 @@
+
+body {
+    /* margin: 0em 14em 0em 14em; */
+    font-family: "Jolly Lodger", sans-serif;
+    /* background-color: #FFFF; */
+  }
+
+.header {
+    display:flex;
+    height: 261px;
+}
+.header h1 {
+    font-size: 96px;
+    flex:1;
+    text-align:center;
+    /* display:flex; */
+    
+}
+
+.middle {
+    display:flex;
+    height:275px;
+
+}
+
+.player, .buttons, .computer {
+    flex:1;
+}
+
+.player h3, .computer h3{
+    text-align:center;
+    font-size:48px;
+    text-decoration: underline ;
+    text-decoration-style: solid;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.player p, .computer p{
+    text-align:center;
+    font-size:36px;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.buttons {
+    display:flex;
+    gap:50px;
+    /* height: 167px;
+    width: auto; */
+    /* max-height:00px; */
+}
+.buttons img{
+    flex:1;
+    height: 167px;
+    width: auto;
+
+}
+.buttons button {
+    border-radius:25px;
+    height:167px;
+    width:auto;
+}
+
+.result {
+    display: flex;
+}
+
+.result p {
+    flex:1;
+    font-size:64px;
+    text-align: center;
+    margin-top:0;
+}

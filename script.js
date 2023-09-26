@@ -1,32 +1,65 @@
-function getComputerChoice(){
-    let choices = ["rock", "paper", "scissors"];
-    let idx = Math.floor(Math.random()*choices.length);
-    return choices[idx]
+function getComputerChoice() {
+  let choices = ["Rock", "Paper", "Scissors"];
+  let idx = Math.floor(Math.random() * choices.length);
+  return choices[idx];
 }
 
 function playRound(playerSelection, computerSelection) {
-    // your code here!
-    if (playerSelection.toLowerCase() === computerSelection){
-        return "Tied"
-    }
-    else if ((playerSelection.toLowerCase()==="rock")&&(computerSelection==="scissors")){
-        return `You Win! ${playerSelection} beats ${computerSelection}!`
-    }
-    else if ((playerSelection.toLowerCase()==="scissors")&&(computerSelection==="paper")){
-        return `You Win! ${playerSelection} beats ${computerSelection}!`
-    }
-    else if ((playerSelection.toLowerCase()==="paper")&&(computerSelection==="rock")){
-        return `You Win! ${playerSelection} beats ${computerSelection}!`
-    }
-    else return `You Lose! ${computerSelection} beats ${playerSelection}!`
+  // your code here!
+  if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
+    return "Tied";
+  } else if (
+    playerSelection.toLowerCase() === "rock" &&
+    computerSelection.toLowerCase() === "scissors"
+  ) {
+    return `You Win! ${playerSelection} beats ${computerSelection}!`;
+  } else if (
+    playerSelection.toLowerCase() === "scissors" &&
+    computerSelection.toLowerCase() === "paper"
+  ) {
+    return `You Win! ${playerSelection} beats ${computerSelection}!`;
+  } else if (
+    playerSelection.toLowerCase() === "paper" &&
+    computerSelection.toLowerCase() === "rock"
+  ) {
+    return `You Win! ${playerSelection} beats ${computerSelection}!`;
+  } else return `You Lose! ${computerSelection} beats ${playerSelection}!`;
+}
+
+function appendText(querySel, txt) {
+  const container = document.querySelector(querySel);
+  const content = document.createElement("p");
+  content.textContent = txt;
+  container.appendChild(content);
+}
+function replaceText(id, txt) {
+  document.getElementById(id).innerText = txt
+}
+function displayMove(event) {
+  let playerChoice;
+  if (event.target.id === "rock") {
+    playerChoice = "Rock";
+  } else if (event.target.id === "paper") {
+    playerChoice = "Paper";
+  } else {
+    playerChoice = "Scissors";
   }
 
-function game(numberGames){
-    for (let i = 0; i < numberGames; i++) {
-        const playerSelection = prompt("Choose from the following: rock, paper, or scissors?"); // get input
-        const computerSelection = getComputerChoice();
-        console.log(`Player: ${playerSelection}, Computer: ${computerSelection}`)
-        console.log(playRound(playerSelection, computerSelection));
-      }
+  const computerChoice = getComputerChoice();
+  const winningText = playRound(playerChoice, computerChoice);
+
+  replaceText("playerChoice", playerChoice);
+  replaceText("computerChoice", computerChoice);
+  replaceText("result-text", winningText);
+
 }
-game(5)
+
+function game(numberGames) {
+  const buttons = document.querySelectorAll(".btn");
+  buttons.forEach(function (currentBtn) {
+    currentBtn.addEventListener("click", (event) => {
+      displayMove(event);
+    });
+  });
+}
+game(1);
