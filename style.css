@@ -65,6 +65,8 @@ body {
 .result {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .result p {
@@ -72,6 +74,7 @@ body {
     font-size:64px;
     text-align: center;
     margin-top:0;
+    margin-bottom:45px;
 }
 
 .resultPage {
@@ -85,4 +88,12 @@ body {
     display:block;
     text-align:center;
     font-size:36px;
+}
+
+#submit {
+    visibility:hidden;
+    flex:1;
+    width:100px;
+    font-size: 24px;
+    font-family: "Jolly Lodger", sans-serif;
 }

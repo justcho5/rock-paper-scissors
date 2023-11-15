@@ -63,13 +63,16 @@ function displayMove(event, playerPoints, computerPoints) {
 }
 function displayFinalScore(playerScore, computerScore) {
   if (playerScore > computerScore) {
-    replaceText("gameResult", `Final: You Won ${playerScore}/${playerScore+computerScore} games`);
+    replaceText("gameResult", `Final: You Won ${playerScore} to ${computerScore}`);
   } else if (computerScore > playerScore) {
-    replaceText("gameResult", `Final: You Lost ${computerScore}/${playerScore+computerScore} games`);
+    replaceText("gameResult", `Final: You Lost ${playerScore} to ${computerScore}`);
   } else {
     replaceText("gameResult", `Final: You Tied ${playerScore} to ${computerScore}`);
   }
+
+  document.getElementById('submit').style.visibility ='visible';
 }
+
 function game(numberGames) {
   const buttons = document.querySelectorAll(".btn");
   let count = 0;
@@ -78,13 +81,12 @@ function game(numberGames) {
   buttons.forEach(function (currentBtn) {
     currentBtn.addEventListener("click", (event) => {
       count++;
-      if (count < numberGames) {
+      if (count <= numberGames) {
         [player, computer] = displayMove(event, player, computer);
-      } else {
-        [player, computer] = displayMove(event, player, computer);
-        // console.log(player)
+      } 
+      
+      if (count == numberGames) {
         displayFinalScore(player, computer);
-        // console.log(document)
       }
     });
   });
